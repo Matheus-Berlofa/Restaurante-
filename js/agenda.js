@@ -10,7 +10,7 @@ let mesaSelecionada = "";
 // 🔥 PUXAR NOME E EMAIL DO USUÁRIO LOGADO
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        document.getElementById("nomeUsuario").innerText = user.displayName || "Usuário";
+        document.getElementById("nomeUsuario").innerText = user.displayName;
         document.getElementById("emailUsuario").innerText = user.email;
     } else {
         window.location.href = "login.html";
@@ -89,3 +89,4 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
         mensagem.style.color = "red";
     }
 });
+
