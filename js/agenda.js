@@ -29,8 +29,8 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
       horario: horarioSelecionado,
       mesa: mesaSelecionada,
       quantidade: qtd,
-      nome,
-      email,
+      nome: nome,
+      email: email,
       uid: user.uid,
       criadoEm: new Date() // salva data e hora
     });
@@ -48,3 +48,4 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
+
