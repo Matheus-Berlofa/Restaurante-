@@ -1,55 +1,55 @@
-import { db } from "./firebase.js";
-import { collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Restaurante Fictício</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const form = document.getElementById("agendaForm");
-const mensagem = document.getElementById("mensagem");
+    <h2>Agende sua Mesa</h2>
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    <form id="agendaForm">
+        <label>Nome:</label>
+        <input type="text" id="nome" required>
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const data = document.getElementById("data").value;
-    const horario = document.getElementById("horario").value;
-    const mesa = document.getElementById("mesa").value;
-    const quantidade = document.getElementById("quantidade").value;
+        <label>Email:</label>
+        <input type="email" id="email" required>
 
-    // 🔒 Verificar se já existe reserva para a mesma DATA + HORÁRIO + MESA
-    const reservasRef = collection(db, "reservas");
+        <label>Data:</label>
+        <input type="date" id="data" required>
 
-    const q = query(
-        reservasRef,
-        where("data", "==", data),
-        where("horario", "==", horario),
-        where("mesa", "==", mesa)
-    );
+        <label>Horário:</label>
+        <select id="horario" required>
+            <option value="">Selecione</option>
+            <option>11:00</option>
+            <option>12:00</option>
+            <option>13:00</option>
+            <option>18:00</option>
+            <option>19:00</option>
+            <option>20:00</option>
+        </select>
 
-    const resultado = await getDocs(q);
+        <label>Mesa:</label>
+        <select id="mesa" required>
+            <option value="">Selecione</option>
+            <option>Mesa 1</option>
+            <option>Mesa 2</option>
+            <option>Mesa 3</option>
+            <option>Mesa 4</option>
+            <option>Mesa 5</option>
+        </select>
 
-    if (!resultado.empty) {
-        mensagem.innerText = "❌ Essa mesa já está reservada nesse horário!";
-        mensagem.style.color = "red";
-        return;
-    }
+        <label>Quantidade de pessoas:</label>
+        <input type="number" id="quantidade" min="1" max="10" required>
 
-    try {
-        await addDoc(collection(db, "reservas"), {
-            nome,
-            email,
-            data,
-            horario,
-            mesa,
-            quantidade,
-            criadoEm: new Date()
-        });
+        <button type="submit">Reservar</button>
+    </form>
 
-        mensagem.innerText = "✔ Reserva realizada com sucesso!";
-        mensagem.style.color = "green";
-        form.reset();
+    <p id="mensagem"></p>
 
-    } catch (error) {
-        console.log(error);
-        mensagem.innerText = "❌ Erro ao salvar reserva!";
-        mensagem.style.color = "red";
-    }
-});
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="agenda.js"></script>
+</body>
+</html>
