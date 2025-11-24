@@ -1,3 +1,63 @@
+// js/agenda.js
+import { auth, db } from "./firebase.js";
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import {
+  doc, getDoc, collection, addDoc
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+let horarioSelecionado = "";
+let mesaSelecionada = "";
+
+// Carrega nome e email do usuário
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  let nomeParaExibir = user.displayName;
+
+  if (!nomeParaExibir) {
+    try {
+      const userDocRef = doc(db, "usuarios", user.uid);
+      const snap = await getDoc(userDocRef);
+
+      if (snap.exists()) {
+        nomeParaExibir = snap.data().nome || "";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  document.getElementById("nomeUsuario").innerText = nomeParaExibir || "Usuário";
+  document.getElementById("emailUsuario").innerText = user.email;
+});
+
+// Seleção de horário
+document.querySelectorAll("#horarios .option-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#horarios .option-btn")
+      .forEach(b => b.classList.remove("option-selected"));
+
+    btn.classList.add("option-selected");
+    horarioSelecionado = btn.textContent;
+  });
+});
+
+// Seleção de mesa
+document.querySelectorAll("#mesas .option-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#mesas .option-btn")
+      .forEach(b => b.classList.remove("option-selected"));
+
+    btn.classList.add("option-selected");
+    mesaSelecionada = btn.textContent;
+  });
+});
+
 // Enviar reserva
 document.getElementById("agendaForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -5,17 +65,6 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
   const data = document.getElementById("data").value;
   const qtd = document.getElementById("quantidade").value;
   const mensagem = document.getElementById("mensagem");
-
-  const user = auth.currentUser;
-  if (!user) {
-    mensagem.innerText = "Usuário não autenticado!";
-    mensagem.style.color = "red";
-    return;
-  }
-
-  // nome e email já carregados no HTML — vamos pegar novamente para salvar no banco
-  const nome = document.getElementById("nomeUsuario").innerText;
-  const email = document.getElementById("emailUsuario").innerText;
 
   if (!data || !horarioSelecionado || !mesaSelecionada || !qtd) {
     mensagem.innerText = "Preencha todos os campos!";
@@ -29,10 +78,9 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
       horario: horarioSelecionado,
       mesa: mesaSelecionada,
       quantidade: qtd,
-      nome: nome,
-      email: email,
-      uid: user.uid,
-      criadoEm: new Date() // salva data e hora
+      criadoEm: new Date(),
+      nome: nomeParaExibir,
+      email: user.email
     });
 
     mensagem.innerText = "Reserva realizada com sucesso!";
@@ -48,4 +96,3 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
-
