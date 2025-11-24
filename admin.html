@@ -1,23 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Painel Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #logoutBtn {
+            background: #d9534f;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .reserva-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .reserva-box strong {
+            display: block;
+            margin-top: 4px;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .secao-titulo {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Painel Administrativo</h2>
+    <h2>Painel Administrativo</h2>
 
-<p>Bem-vindo, <strong id="emailAdmin"></strong>!</p>
-<button id="btnLogout">Sair</button>
+    <p id="userEmail"></p>
+    <button id="logoutBtn">Sair</button>
 
-<hr>
+    <h3 class="secao-titulo">Hoje</h3>
+    <div id="listaHoje"></div>
 
-<h3>Reservas</h3>
-<div id="listaReservas"></div>
+    <h3 class="secao-titulo">Amanhã</h3>
+    <div id="listaAmanha"></div>
 
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/admin.js"></script>
+    <h3 class="secao-titulo">Próximos Dias</h3>
+    <div id="listaProximos"></div>
 
+    <script type="module" src="js/admin.js"></script>
 </body>
 </html>
