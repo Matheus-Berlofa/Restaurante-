@@ -1,5 +1,6 @@
 import { app, db, auth } from "./firebase.js";
 import { 
+  getAuth,
   createUserWithEmailAndPassword,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
