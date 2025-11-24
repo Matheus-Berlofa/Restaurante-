@@ -96,3 +96,68 @@ footer {
     align-items: center;
   }
 }
+
+/* LOGIN PAGE */
+.login-body {
+  background: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe')
+      no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background: #ffffffcc;
+  backdrop-filter: blur(5px);
+  padding: 40px;
+  border-radius: 12px;
+  width: 330px;
+  box-shadow: 0 0 15px #0003;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#loginBtn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-links {
+  margin-top: 15px;
+}
+
+.login-links a {
+  color: #111;
+  font-weight: bold;
+}
+
+.voltar {
+  display: block;
+  margin-top: 10px;
+  color: #444;
+  font-size: 14px;
+}
+
