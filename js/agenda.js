@@ -87,7 +87,7 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
       data,
       horario: horarioSelecionado,
       mesa: mesaSelecionada,
-      quantidade: qtd,
+      quantidade_de_pessoas: qtd,
       criadoEm: new Date(),
       nome: nomeUsuarioLogado,
       email: emailUsuarioLogado,
@@ -107,3 +107,4 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
+
