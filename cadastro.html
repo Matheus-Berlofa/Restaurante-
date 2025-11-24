@@ -1,32 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Cadastro - Restaurante Ao Lado da Uninove</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
 </head>
-<body class="login-body">
+<body>
 
-<div class="login-container">
-  <h2>Criar Conta</h2>
+    <h1>Cadastro</h1>
 
-  <input id="nome" type="text" placeholder="Nome completo">
-  <input id="email" type="email" placeholder="E-mail">
-  <input id="senha" type="password" placeholder="Senha">
-  <input id="confirmarSenha" type="password" placeholder="Confirmar senha">
+    <input type="email" id="email" placeholder="E-mail" required>
+    <input type="password" id="senha" placeholder="Senha" required>
 
-  <button id="btnCadastrar">Cadastrar</button>
+    <button id="btnCadastrar">Cadastrar</button>
 
-  <p class="login-links">
-    Já tem conta? <a href="login.html">Entrar</a>
-  </p>
-
-  <a href="index.html" class="voltar">⬅ Voltar ao início</a>
-</div>
-
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/cadastro.js"></script>
-
+    <script type="module" src="cadastro.js"></script>
 </body>
 </html>
-
