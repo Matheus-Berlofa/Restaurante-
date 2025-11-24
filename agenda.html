@@ -1,26 +1,55 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Agendamento - Restaurante</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+import { db } from "./firebase.js";
+import { collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
-<div class="container">
-  <h2>Agendar uma mesa</h2>
+const form = document.getElementById("agendaForm");
+const mensagem = document.getElementById("mensagem");
 
-  <input id="data" type="date">
-  <input id="hora" type="time">
-  <input id="pessoas" type="number" placeholder="Número de pessoas">
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  <button id="agendarBtn">Agendar</button>
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const data = document.getElementById("data").value;
+    const horario = document.getElementById("horario").value;
+    const mesa = document.getElementById("mesa").value;
+    const quantidade = document.getElementById("quantidade").value;
 
-  <p><a href="admin.html">Sou administrador</a></p>
-</div>
+    // 🔒 Verificar se já existe reserva para a mesma DATA + HORÁRIO + MESA
+    const reservasRef = collection(db, "reservas");
 
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/agenda.js"></script>
+    const q = query(
+        reservasRef,
+        where("data", "==", data),
+        where("horario", "==", horario),
+        where("mesa", "==", mesa)
+    );
 
-</body>
-</html>
+    const resultado = await getDocs(q);
+
+    if (!resultado.empty) {
+        mensagem.innerText = "❌ Essa mesa já está reservada nesse horário!";
+        mensagem.style.color = "red";
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "reservas"), {
+            nome,
+            email,
+            data,
+            horario,
+            mesa,
+            quantidade,
+            criadoEm: new Date()
+        });
+
+        mensagem.innerText = "✔ Reserva realizada com sucesso!";
+        mensagem.style.color = "green";
+        form.reset();
+
+    } catch (error) {
+        console.log(error);
+        mensagem.innerText = "❌ Erro ao salvar reserva!";
+        mensagem.style.color = "red";
+    }
+});
