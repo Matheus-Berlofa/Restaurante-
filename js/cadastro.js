@@ -46,4 +46,3 @@ document.getElementById("cadastroBtn").addEventListener("click", async () => {
     alert("Erro ao cadastrar: " + erro.message);
   }
 });
-
