@@ -1,6 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAoNt8GLu-6kg8iezNW45UMxVKNUH1y3KM",
   authDomain: "restaurante-b7b3b.firebaseapp.com",
@@ -11,5 +14,11 @@ const firebaseConfig = {
   measurementId: "G-E96TVPVD1C"
 };
 
-export const app = initializeApp(firebaseConfig);
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+
+// Exporta autenticação
+export const auth = getAuth(app);
+
+// Exporta Firestore
 export const db = getFirestore(app);
