@@ -1,29 +1,51 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAoNt8GLu-6kg8iezNW45UMxVKNUH1y3KM",
-  authDomain: "restaurante-b7b3b.firebaseapp.com",
-  projectId: "restaurante-b7b3b",
-  storageBucket: "restaurante-b7b3b.firebasestorage.app",
-  messagingSenderId: "736095610672",
-  appId: "1:736095610672:web:bf1e7e27653a0b2cd24af5",
-  measurementId: "G-E96TVPVD1C"
-};
+window.onload = () => {
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+  const btnCadastrar = document.getElementById("btnCadastrar");
 
-document.getElementById("btnCadastrar").addEventListener("click", async () => {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+  btnCadastrar.addEventListener("click", async () => {
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmarSenha = document.getElementById("confirmarSenha").value.trim();
+
+    // validações básicas
+    if (!nome || !email || !senha || !confirmarSenha) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    if (senha.length < 6) {
+      alert("A senha deve ter no mínimo 6 caracteres.");
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem.");
+      return;
+    }
 
     try {
-        await createUserWithEmailAndPassword(auth, email, senha);
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "login.html";
+      // cria usuário no Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+
+      // salva o nome no Firestore
+      await setDoc(doc(db, "usuarios", user.uid), {
+        nome: nome,
+        email: email
+      });
+
+      alert("Cadastro realizado com sucesso!");
+      window.location.href = "login.html";
+
     } catch (error) {
-        console.error(error);
-        alert("Erro: " + error.message);
+      console.error(error);
+      alert("Erro ao cadastrar: " + error.message);
     }
-});
+  });
+
+};
