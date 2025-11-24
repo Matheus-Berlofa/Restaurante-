@@ -18,7 +18,7 @@ window.onload = () => {
       await signInWithEmailAndPassword(auth, email, senha);
 
       alert("Login realizado com sucesso!");
-      window.location.href = "admin.html";
+      window.location.href = "index.html";
 
     } catch (error) {
       console.error(error);
