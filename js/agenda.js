@@ -79,7 +79,7 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
       mesa: mesaSelecionada,
       quantidade: qtd,
       criadoEm: new Date(),
-      nome: nomeParaExibir,
+      nome: user.displayName,
       email: user.email
     });
 
@@ -96,3 +96,4 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
+
