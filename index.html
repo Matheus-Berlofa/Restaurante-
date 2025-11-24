@@ -2,23 +2,69 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Restaurante - Login</title>
+  <title>Restaurante Ao Lado da Uninove</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h2>Login Restaurante</h2>
+<header>
+  <h1>Restaurante Ao Lado da Uninove</h1>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#menu">Menu</a>
+    <a href="#contato">Contato</a>
+    <a href="index.html" class="login-btn">Login</a>
+  </nav>
+</header>
 
-  <input id="email" type="email" placeholder="E-mail">
-  <input id="senha" type="password" placeholder="Senha">
+<section class="banner">
+  <div class="banner-text">
+    <h2>Sabor, Qualidade e Comodidade</h2>
+    <p>O restaurante preferido dos estudantes da Uninove.</p>
+    <a href="agenda.html" class="btn-banner">Agendar Mesa</a>
+  </div>
+</section>
 
-  <button id="loginBtn">Entrar</button>
+<section id="sobre" class="sobre">
+  <h2>Sobre Nós</h2>
+  <p>
+    O <b>Restaurante Ao Lado da Uninove</b> é um estabelecimento fictício criado 
+    para fins de estudo e desenvolvimento. Localizado ao lado da universidade 
+    Uninove, oferece pratos deliciosos, ambiente acolhedor e atendimento rápido, 
+    perfeito para estudantes, professores e moradores da região.
+  </p>
+</section>
 
-  <p>Não tem conta? <a href="cadastro.html">Cadastrar</a></p>
-</div>
+<section id="menu" class="menu">
+  <h2>Nosso Menu</h2>
 
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/auth.js"></script>
+  <div class="menu-container">
+    <div class="prato">
+      <h3>Prato Executivo</h3>
+      <p>Arroz, feijão, carne e salada.</p>
+    </div>
+
+    <div class="prato">
+      <h3>Macarronada</h3>
+      <p>Molho vermelho ou branco, com queijo ralado.</p>
+    </div>
+
+    <div class="prato">
+      <h3>Hambúrguer Artesanal</h3>
+      <p>Pão brioche, carne 160g, queijo e molho especial.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="contato">
+  <h2>Contato</h2>
+  <p>Email: atendimento@restauranteuninove.com</p>
+  <p>Endereço: Rua Fictícia, 123 – Ao lado da Uninove</p>
+</section>
+
+<footer>
+  <p>&copy; 2025 Restaurante Ao Lado da Uninove</p>
+</footer>
+
 </body>
 </html>
