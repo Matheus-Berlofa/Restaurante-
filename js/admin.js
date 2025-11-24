@@ -16,6 +16,7 @@ import {
 // 1. Verifica login
 // ===============================
 onAuthStateChanged(auth, async (user) => {
+  console.log("⚠️ Usuario detectado no admin.js:", user);
   if (!user) {
     window.location.href = "login.html";
     return;
@@ -77,3 +78,4 @@ document.getElementById("btnLogout").addEventListener("click", async () => {
   await signOut(auth);
   window.location.href = "login.html";
 });
+
