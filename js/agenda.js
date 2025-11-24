@@ -1,31 +1,55 @@
-import { auth, db } from "./firebase.js";
-import {
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-  addDoc, collection
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { db } from "./firebase.js";
+import { collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
-const btn = document.getElementById("agendarBtn");
+const form = document.getElementById("agendaForm");
+const mensagem = document.getElementById("mensagem");
 
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "index.html";
-  }
-});
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-btn.addEventListener("click", async () => {
-  const data = document.getElementById("data").value;
-  const hora = document.getElementById("hora").value;
-  const pessoas = document.getElementById("pessoas").value;
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const data = document.getElementById("data").value;
+    const horario = document.getElementById("horario").value;
+    const mesa = document.getElementById("mesa").value;
+    const quantidade = document.getElementById("quantidade").value;
 
-  await addDoc(collection(db, "agendamentos"), {
-    clienteId: auth.currentUser.uid,
-    data,
-    hora,
-    pessoas,
-    criadoEm: new Date()
-  });
+    // 🔒 Verificar se já existe reserva para a mesma DATA + HORÁRIO + MESA
+    const reservasRef = collection(db, "reservas");
 
-  alert("Mesa agendada com sucesso!");
+    const q = query(
+        reservasRef,
+        where("data", "==", data),
+        where("horario", "==", horario),
+        where("mesa", "==", mesa)
+    );
+
+    const resultado = await getDocs(q);
+
+    if (!resultado.empty) {
+        mensagem.innerText = "❌ Essa mesa já está reservada nesse horário!";
+        mensagem.style.color = "red";
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "reservas"), {
+            nome,
+            email,
+            data,
+            horario,
+            mesa,
+            quantidade,
+            criadoEm: new Date()
+        });
+
+        mensagem.innerText = "✔ Reserva realizada com sucesso!";
+        mensagem.style.color = "green";
+        form.reset();
+
+    } catch (error) {
+        console.log(error);
+        mensagem.innerText = "❌ Erro ao salvar reserva!";
+        mensagem.style.color = "red";
+    }
 });
