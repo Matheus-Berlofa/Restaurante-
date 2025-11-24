@@ -1,32 +1,26 @@
-import { db } from "./firebase.js";
-import {
-  collection, getDocs, deleteDoc, doc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { auth } from "./firebase.js";
+import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-async function carregar() {
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
+window.onload = () => {
 
-  const snap = await getDocs(collection(db, "agendamentos"));
+  const bemVindo = document.getElementById("bemVindo");
+  const btnLogout = document.getElementById("btnLogout");
 
-  snap.forEach((d) => {
-    const ag = d.data();
+  // Verifica se o usuário está logado
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // não logado → volta pro login
+      window.location.href = "login.html";
+      return;
+    }
 
-    lista.innerHTML += `
-      <div class="card">
-        <p><b>Data:</b> ${ag.data}</p>
-        <p><b>Hora:</b> ${ag.hora}</p>
-        <p><b>Pessoas:</b> ${ag.pessoas}</p>
-
-        <button onclick="excluir('${d.id}')">Excluir</button>
-      </div>
-    `;
+    bemVindo.textContent = `Bem-vindo, ${user.email}!`;
   });
-}
 
-window.excluir = async (id) => {
-  await deleteDoc(doc(db, "agendamentos", id));
-  carregar();
+  // Logout
+  btnLogout.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+  });
+
 };
-
-carregar();
