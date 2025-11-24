@@ -2,24 +2,30 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastrar</title>
+  <title>Cadastro - Restaurante Ao Lado da Uninove</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="login-body">
 
-<div class="container">
+<div class="login-container">
   <h2>Criar Conta</h2>
 
   <input id="nome" type="text" placeholder="Nome completo">
   <input id="email" type="email" placeholder="E-mail">
   <input id="senha" type="password" placeholder="Senha">
+  <input id="confirmarSenha" type="password" placeholder="Confirmar senha">
 
-  <button id="cadBtn">Cadastrar</button>
+  <button id="cadastroBtn">Cadastrar</button>
 
-  <p><a href="index.html">Voltar</a></p>
+  <p class="login-links">
+    Já tem conta? <a href="login.html">Entrar</a>
+  </p>
+
+  <a href="index.html" class="voltar">⬅ Voltar ao início</a>
 </div>
 
 <script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/cadastro.js"></script>
+
 </body>
 </html>
