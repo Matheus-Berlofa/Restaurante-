@@ -10,6 +10,9 @@ import {
 let horarioSelecionado = "";
 let mesaSelecionada = "";
 
+let nomeUsuarioLogado = "";
+let emailUsuarioLogado = "";
+
 // Carrega nome e email do usuário
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -17,8 +20,11 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
+  emailUsuarioLogado = user.email;
+
   let nomeParaExibir = user.displayName;
 
+  // Caso não tenha displayName, buscar no Firestore
   if (!nomeParaExibir) {
     try {
       const userDocRef = doc(db, "usuarios", user.uid);
@@ -32,8 +38,10 @@ onAuthStateChanged(auth, async (user) => {
     }
   }
 
-  document.getElementById("nomeUsuario").innerText = nomeParaExibir || "Usuário";
-  document.getElementById("emailUsuario").innerText = user.email;
+  nomeUsuarioLogado = nomeParaExibir;
+
+  document.getElementById("nomeUsuario").innerText = nomeUsuarioLogado;
+  document.getElementById("emailUsuario").innerText = emailUsuarioLogado;
 });
 
 // Seleção de horário
@@ -72,6 +80,8 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     return;
   }
 
+  const user = auth.currentUser;
+
   try {
     await addDoc(collection(db, "reservas"), {
       data,
@@ -79,8 +89,9 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
       mesa: mesaSelecionada,
       quantidade: qtd,
       criadoEm: new Date(),
-      nome: user.displayName,
-      email: user.email
+      nome: nomeUsuarioLogado,
+      email: emailUsuarioLogado,
+      uid: user.uid
     });
 
     mensagem.innerText = "Reserva realizada com sucesso!";
@@ -96,4 +107,3 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
-
