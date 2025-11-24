@@ -1,5 +1,5 @@
 import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
 window.onload = () => {
 
@@ -15,11 +15,10 @@ window.onload = () => {
     }
 
     try {
-      // Login no Firebase
       await signInWithEmailAndPassword(auth, email, senha);
 
       alert("Login realizado com sucesso!");
-      window.location.href = "admin.html"; // redirecionar após login
+      window.location.href = "admin.html";
 
     } catch (error) {
       console.error(error);
@@ -30,6 +29,8 @@ window.onload = () => {
         alert("Usuário não encontrado.");
       } else if (error.code === "auth/wrong-password") {
         alert("Senha incorreta.");
+      } else if (error.code === "auth/network-request-failed") {
+        alert("Erro de conexão. Verifique sua internet ou rode o site via localhost.");
       } else {
         alert("Erro ao fazer login: " + error.message);
       }
