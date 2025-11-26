@@ -1,4 +1,3 @@
-// js/agenda.js
 import { auth, db } from "./firebase.js";
 import {
   onAuthStateChanged
@@ -21,7 +20,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   emailUsuarioLogado = user.email;
-
   let nomeParaExibir = user.displayName;
 
   // Caso não tenha displayName, buscar no Firestore
@@ -39,7 +37,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   nomeUsuarioLogado = nomeParaExibir;
-
   document.getElementById("nomeUsuario").innerText = nomeUsuarioLogado;
   document.getElementById("emailUsuario").innerText = emailUsuarioLogado;
 });
@@ -101,11 +98,10 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     horarioSelecionado = "";
     mesaSelecionada = "";
     document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("option-selected"));
+
   } catch (error) {
     console.error(error);
     mensagem.innerText = "Erro ao reservar!";
     mensagem.style.color = "red";
   }
 });
-
-
