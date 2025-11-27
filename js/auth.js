@@ -8,7 +8,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
-// LOGIN
+// login
 const loginBtn = document.getElementById("loginBtn");
 if (loginBtn) {
   loginBtn.addEventListener("click", async () => {
@@ -25,7 +25,7 @@ if (loginBtn) {
 }
 
 
-// CADASTRO
+// cardastro
 const cadBtn = document.getElementById("cadBtn");
 if (cadBtn) {
   cadBtn.addEventListener("click", async () => {
@@ -49,3 +49,4 @@ if (cadBtn) {
     }
   });
 }
+
