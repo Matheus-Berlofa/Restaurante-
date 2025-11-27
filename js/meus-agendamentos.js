@@ -10,7 +10,7 @@ import {
 const listaReservas = document.getElementById("listaReservas");
 const mensagem = document.getElementById("mensagem");
 
-// Verifica login
+// verifica login
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -20,7 +20,7 @@ onAuthStateChanged(auth, async (user) => {
   carregarReservas(user.uid);
 });
 
-// Carrega reservas do usuário
+// Carrega reservas
 async function carregarReservas(uid) {
   listaReservas.innerHTML = "<p>Carregando...</p>";
 
@@ -57,7 +57,7 @@ async function carregarReservas(uid) {
     listaReservas.appendChild(card);
   });
 
-  // Botões de cancelar
+  // Botao de cancelar
   document.querySelectorAll(".btn-cancelar").forEach(btn => {
     btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-id");
@@ -67,7 +67,6 @@ async function carregarReservas(uid) {
         mensagem.textContent = "Reserva cancelada!";
         mensagem.style.color = "green";
 
-        // Atualiza a lista
         carregarReservas(auth.currentUser.uid);
 
       } catch (error) {
