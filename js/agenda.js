@@ -12,7 +12,7 @@ let mesaSelecionada = "";
 let nomeUsuarioLogado = "";
 let emailUsuarioLogado = "";
 
-// Carrega nome e email do usuário
+// Carrega nome e email
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -22,7 +22,6 @@ onAuthStateChanged(auth, async (user) => {
   emailUsuarioLogado = user.email;
   let nomeParaExibir = user.displayName;
 
-  // Caso não tenha displayName, buscar no Firestore
   if (!nomeParaExibir) {
     try {
       const userDocRef = doc(db, "usuarios", user.uid);
@@ -105,3 +104,4 @@ document.getElementById("agendaForm").addEventListener("submit", async (e) => {
     mensagem.style.color = "red";
   }
 });
+
