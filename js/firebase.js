@@ -1,4 +1,3 @@
-// Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
@@ -14,11 +13,9 @@ const firebaseConfig = {
   measurementId: "G-E96TVPVD1C"
 };
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 
-// Exporta autenticação
 export const auth = getAuth(app);
 
-// Exporta Firestore
 export const db = getFirestore(app);
+
