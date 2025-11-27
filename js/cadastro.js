@@ -1,4 +1,3 @@
-// js/cadastro.js
 import { auth, db } from "./firebase.js";
 import { createUserWithEmailAndPassword, updateProfile } 
   from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
@@ -31,10 +30,9 @@ window.onload = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       const user = userCredential.user;
 
-      // Atualiza displayName no Auth (isso faz user.displayName aparecer)
+      // isso faz user.displayName aparecer
       await updateProfile(user, { displayName: nome });
 
-      // Também salva no Firestore (coleção 'usuarios')
       await setDoc(doc(db, "usuarios", user.uid), {
         nome,
         email,
