@@ -1,8 +1,6 @@
-// Importando Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// Config Firebase (MESMA que você já usa nos outros scripts)
 const firebaseConfig = {
   apiKey: "AIzaSyAoNt8GLu-6kg8iezNW45UMxVKNUH1y3KM",
   authDomain: "restaurante-b7b3b.firebaseapp.com",
@@ -13,22 +11,20 @@ const firebaseConfig = {
   measurementId: "G-E96TVPVD1C"
 };
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Elementos do HTML
 const btnLogin = document.getElementById("btnLogin");
 const btnMeusAgendamentos = document.getElementById("btnMeusAgendamentos");
 
-// Detecta usuário logado
+// detecta se ta logado
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Usuário logado → mostra "Meus agendamentos" e esconde "Login"
+    // meus agendamentos e login
     btnLogin.style.display = "none";
     btnMeusAgendamentos.style.display = "inline-block";
   } else {
-    // Não logado → mostra "Login" e esconde "Meus Agendamentos"
+    // login e meus agendamentos
     btnLogin.style.display = "inline-block";
     btnMeusAgendamentos.style.display = "none";
   }
