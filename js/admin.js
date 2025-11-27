@@ -1,4 +1,3 @@
-// js/admin.js
 import { auth, db } from "./firebase.js";
 import {
   onAuthStateChanged,
@@ -84,7 +83,7 @@ async function carregarReservas() {
 
       if (confirm("Tem certeza que deseja excluir esta reserva?")) {
         await deleteDoc(doc(db, "reservas", id));
-        carregarReservas(); // recarrega a lista
+        carregarReservas();
       }
     });
   });
