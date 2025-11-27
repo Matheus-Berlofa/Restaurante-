@@ -25,7 +25,6 @@ header nav a {
   color: black !important;
 }
 
-/* BANNER */
 .banner {
   background: url('https://images.unsplash.com/photo-1528605248644-14dd04022da1');
   background-size: cover;
@@ -55,7 +54,6 @@ header nav a {
   font-weight: bold;
 }
 
-/* SEÇÕES */
 section {
   padding: 40px;
   text-align: center;
@@ -85,7 +83,6 @@ footer {
   margin-top: 40px;
 }
 
-/* RESPONSIVO */
 @media (max-width: 768px) {
   .banner {
     height: 250px;
@@ -97,7 +94,6 @@ footer {
   }
 }
 
-/* LOGIN PAGE */
 .login-body {
   background: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe')
       no-repeat center center fixed;
@@ -160,4 +156,5 @@ footer {
   color: #444;
   font-size: 14px;
 }
+
 
